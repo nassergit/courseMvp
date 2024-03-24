@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+      <groupId>fr.nasser</groupId>
+	    <artifactId>mvp</artifactId>
+	    <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>front</artifactId>
+    <packaging>jar</packaging>
+
+  <build>
+    <sourceDirectory>src/app</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+      </resource>
+      <resource>
+        <directory>e2e</directory>
+      </resource>
+    </resources>
+    <!-- DELETE everything in case of maven clean -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>dist</directory>
+            </fileset>
+            <fileset>
+              <directory>node_modules</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <!-- INSTALL everything -->
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>npm install</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>install</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- BUILD Web Jar for Spring Boot -->
+          <execution>
+            <id>angular-cli build</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <executable>ng</executable>
+              <arguments>
+                <argument>build</argument>
+                <argument>--base-href</argument>
+                <argument>/frontend/</argument>
+                <argument>--output-path</argument>
+                <argument>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- RUN TESTS -->
+          <execution>
+            <id>angular-cli test</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>test</phase>
+            <configuration>
+              <executable>ng</executable>
+              <arguments>
+                <argument>test</argument>
+                <argument>--watch=false</argument>
+                <argument>--code-coverage</argument>
+                <argument>--browsers=ChromeHeadless</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

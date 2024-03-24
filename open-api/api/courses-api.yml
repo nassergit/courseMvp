@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: courses API
+  description: API pour gérer les courses
+  version: 1.0.0
+paths:
+  '/mvp/course':
+    post:
+      tags:
+        - CourseEndPoint
+      summary: creation d'une course
+      operationId: createCourse
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          description: Mauvaise requête
+        403:
+          description: Accès refusé
+        500:
+          description: Erreur serveur
+      requestBody:
+        description: body
+        content:
+          application/json:
+            schema:
+              $ref: "./commons/schemas.yml#/components/schemas/course"
+        required: true
+
+  '/mvp/course/{nomCourse}/{numCourse}':
+    get:
+      tags:
+        - CourseEndPoint
+      summary: retourner la liste de toutes les courses
+      operationId: getCourse
+      parameters:
+        - $ref: "./commons/parameters.yml#/components/parameters/nomCourse"
+        - $ref: "./commons/parameters.yml#/components/parameters/numCourse"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./commons/schemas.yml#/components/schemas/course"
+        400:
+          description: Mauvaise requête
+        403:
+          description: Accès refusé
+        500:
+          description: Erreur serveur
+
+
+  

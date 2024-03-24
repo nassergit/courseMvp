@@ -1,0 +1,16 @@
+components:
+  parameters:
+    nomCourse:
+      name: nomCourse
+      in: path
+      description: nom de la course
+      required: true
+      schema:
+        type: string
+    numCourse:
+      name: numCourse
+      in: path
+      description: numero de la course
+      required: true
+      schema:
+        type: integer

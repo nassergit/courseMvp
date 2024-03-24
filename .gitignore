@@ -1,0 +1,15 @@
+.idea
+backend/target/
+backend/db
+.classpath
+.project
+.settings
+backend/src/main/webapp
+db/
+frontend/coverage/
+frontend/node_modules/
+frontend/.vscode/
+frontend/.angular/
+frontend/src/generated-api-client/
+frontend/target/
+open-api/server/target/

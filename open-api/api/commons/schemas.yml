@@ -1,0 +1,45 @@
+components:
+  schemas:
+    course:
+      description: Les informations pour une course
+      type: object
+      properties:
+        date:
+          description: La date de creation d'une course
+          example: 2023-06-23
+          type: string
+          format: date
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")'
+          required: true
+        nom:
+          description: le nom de la course
+          example: course1
+          type: string
+          required: true
+        numero:
+          description: numero de la course
+          example: 1
+          type: integer
+          required: true
+        partants:
+          type: array
+          x-field-extra-annotation: '@jakarta.validation.constraints.Size(min = 3, message = "Pour chaque course il faut au minimum 3 partants")'
+          items:
+            $ref: "#/components/schemas/partant"
+          minItems: 3
+          required: true
+
+    partant:
+      description: les information sur les partant d'une course
+      type: object
+      properties:
+        nom:
+          description: le nom d'un partant
+          example: Alex
+          type: string
+          required: true
+        numero:
+          description: numero de la course
+          example: 1
+          type: integer
+          required: true
