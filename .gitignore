@@ -1,4 +1,20 @@
+### IntelliJ IDEA ###
 .idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+node_modules/
+dist/
+nbdist/
+.nb-gradle/
+
+.checkstyle
+
 backend/target/
 backend/db
 .classpath
