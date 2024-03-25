@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseRoutingModule } from './routing/course-routing/course-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -8,7 +9,8 @@ import { CourseRoutingModule } from './routing/course-routing/course-routing.mod
   declarations: [],
   imports: [
     CommonModule,
-    CourseRoutingModule
+    CourseRoutingModule,
+    HttpClientModule
   ]
 })
 export class CourseModule { }
