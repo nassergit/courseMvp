@@ -16,7 +16,11 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: La course est créée avec succes, l'ID 1
         400:
           description: Mauvaise requête
         403:

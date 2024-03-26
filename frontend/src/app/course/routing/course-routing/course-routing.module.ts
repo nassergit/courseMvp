@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { CourseComponentComponent } from '../../componenets/course-component/course-component.component';
+import { GetCourseComponent } from '../../componenets/course-component/get-component/get-course/get-course.component';
+import { RouterModule, Routes } from '@angular/router';
 
 
 
-const routes: Routes = [{ path: '', redirectTo: 'get-course', pathMatch: 'full' },
-{ path: 'get-course', component: CourseComponentComponent },
+const routes: Routes = [{ path: '', redirectTo: 'add', pathMatch: 'full' },
+{ path: 'add', component: CourseComponentComponent },
+{ path: 'getcourse/:nomCourse/:numCourse', component: GetCourseComponent }
 ];
 
 @NgModule({

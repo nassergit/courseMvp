@@ -2,6 +2,7 @@ package fr.nasser.mvp.coursesmanager.controller;
 
 import fr.nasser.mvp.coursesmanager.api.CourseEndPointApi;
 import fr.nasser.mvp.coursesmanager.api.model.Course;
+import fr.nasser.mvp.coursesmanager.api.model.CreateCourse200Response;
 import fr.nasser.mvp.coursesmanager.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,10 @@ public class CoursesController implements CourseEndPointApi {
     }
 
     @Override
-    public ResponseEntity<String> createCourse(Course course){
+    public ResponseEntity<CreateCourse200Response> createCourse(Course course){
         long savedCourseId = courseService.saveCourse(course);
-        return new ResponseEntity<>("La course est créée avec succes, l'ID : "+savedCourseId, HttpStatus.OK);
+        CreateCourse200Response rep = new CreateCourse200Response("La course est créée avec succes, l'ID : "+savedCourseId);
+        return new ResponseEntity<>(rep, HttpStatus.OK);
     }
 
     @Override

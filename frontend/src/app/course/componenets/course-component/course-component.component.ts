@@ -1,13 +1,16 @@
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Course } from '../../../../generated-api-client/mvp/courses-api';
+import { Course, CreateCourse200Response } from '../../../../generated-api-client/mvp/courses-api';
 import { CommonModule } from '@angular/common';
 import { CourseserviceService } from '../../services/courseservice.service';
+import { HttpClientModule, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { catchError, tap, throwError } from 'rxjs';
+import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-component',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './course-component.component.html',
   styleUrl: './course-component.component.scss'
 })
@@ -28,7 +31,9 @@ export class CourseComponentComponent implements OnInit, AfterViewChecked {
   });
 
   
-  constructor(private formBuilder: FormBuilder, private courseservice: CourseserviceService) {
+  constructor(private formBuilder: FormBuilder,
+     private courseservice: CourseserviceService,
+     private router: Router) {
   }
   ngAfterViewChecked(): void {
   }
@@ -45,11 +50,22 @@ export class CourseComponentComponent implements OnInit, AfterViewChecked {
   }
 
   submitForm() {
-    this.course = Object.assign(this.course, this.courseForm.value);
-    this.courseservice.createCourse(this.course).subscribe(value=>{
-      console.log(value);
-    });
-    console.log(this.courseForm.value);
+    if (this.courseForm.valid) {
+      this.course = Object.assign(this.course, this.courseForm.value);
+      this.courseservice.createCourse(this.course).subscribe(
+        (response: HttpResponse<CreateCourse200Response>) => {
+            this.partants.clear();
+            this.courseForm.reset();
+            this.redirectTo('getcourse/' + this.course.nom + '/' + this.course.numero);
+        }
+      );
+    }
   }
 
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate([uri])); 
+  }
 }
+
+

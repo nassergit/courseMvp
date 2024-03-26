@@ -1,0 +1,16 @@
+<div>
+  <p>Nom : {{ course.nom }}</p> 
+  <p>Numero : {{ course.numero }}</p>
+  <p>Date : {{ course.date }}</p>
+  <p>Partants : </p>
+  <table>
+    <tr>
+        <th>Nom</th>
+        <th>Numero</th>
+    </tr>
+    <tr *ngFor="let partant of course.partants">
+      <td>{{ partant.nom }}</td>
+      <td>{{ partant.numero }}</td>
+    </tr>
+  </table>
+</div>

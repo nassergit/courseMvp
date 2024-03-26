@@ -7,7 +7,7 @@
 	    <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>front</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
   <build>
     <sourceDirectory>src/app</sourceDirectory>
